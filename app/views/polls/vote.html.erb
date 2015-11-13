@@ -1,0 +1,20 @@
+<h2><%= @poll.title %></h3>
+<h5>by <%= @poll.owner %></h5>
+
+<div id="vote-buttons">
+	<% @poll_options.each do |option| %>
+		<button class="option-vote"><%= option.body %></button>
+	<% end %>
+</div>
+
+<div id="results-area">
+	<% @poll_options.each do |option| %>
+		<div class="option-result">
+			<strong class="result-body"><%= option.body %>:</strong> <span class="result-votes"><%= option.votes %></span>
+		</div>
+	<% end %>
+</div>
+<!-- visualize the results -->
+
+<!-- time poll closes, if any -->
+

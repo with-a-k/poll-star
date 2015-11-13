@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111165334) do
+ActiveRecord::Schema.define(version: 20151112235621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,10 +29,11 @@ ActiveRecord::Schema.define(version: 20151111165334) do
   create_table "polls", force: :cascade do |t|
     t.string   "title"
     t.string   "owner"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "obfuscator"
     t.boolean  "public"
+    t.string   "public_obfuscator"
   end
 
   add_foreign_key "options", "polls"

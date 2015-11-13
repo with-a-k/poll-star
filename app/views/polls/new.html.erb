@@ -3,9 +3,9 @@
   <%= f.text_field :title %>
   <div class="options-fields">
   	<label>Option</label>
-  	<input type="text" name="poll[options][]" id="poll_options"></input>
+  	<input type="text" name="poll[options][]" id="poll_options"></input><br>
   </div>
+  <button id="add-option">Add Option</button><br>
   <%= f.submit "Create" %>
 <% end %>
 
-<button id="add-option" type="do_nothing">Add Option</button><br>
