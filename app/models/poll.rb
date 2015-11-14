@@ -44,17 +44,12 @@ class Poll < ActiveRecord::Base
     end
   end
 
-  def export_json
-    {
-      title: title,
-      owner: owner,
-      options: options.map do |option|
-        {
-          body: option.body,
-          votes: option.votes,
-          percent: ((option.votes.to_f/total_votes.to_f) * 100).to_i
-        }
-      end
-    }.to_json
+  def as_json
+    super(:only => [:title, :owner],
+          :methods => [:total_votes, :vote_percentages],
+          :include => {
+            :options => { :only => [:body, :votes] }
+          }
+    )
   end
 end
