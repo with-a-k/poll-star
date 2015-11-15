@@ -3,11 +3,11 @@
 
 <div id="vote-buttons">
 	<% @poll_options.each do |option| %>
-		<button class="option-vote"><%= option.body %></button>
+		<button class="option-vote" data-id="<%= option.id %>"><%= option.body %></button>
 	<% end %>
 </div>
 
-<div id="results-area">
+<div id="results-area" data-id="<%= @poll.id %>">
 	<% @poll_options.each do |option| %>
 		<div class="option-result">
 			<strong class="result-body"><%= option.body %>:</strong> <span class="result-votes"><%= option.votes %></span>

@@ -44,7 +44,7 @@ class Poll < ActiveRecord::Base
     end
   end
 
-  def as_json
+  def as_json(options = nil)
     super(:only => [:title, :owner],
           :methods => [:total_votes, :vote_percentages],
           :include => {
