@@ -1,0 +1,21 @@
+<h2><%= @poll.title %></h3>
+<!-- <h5>by <%= @poll.owner %></h5> -->
+
+<div id="results-area">
+	<% @poll_options.each do |option| %>
+		<div class="option-result">
+			<strong class="result-body"><%= option.body %>:</strong> <span class="result-votes"><%= option.votes %></span>
+		</div>
+	<% end %>
+</div>
+
+<div id="poll-urls">
+	Share the URL "/polls/<%= @poll.public_obfuscator %>/vote" and others can vote on this poll.<br>
+	Manage this poll here, at "/polls/<%= @poll.obfuscator %>".
+</div>
+
+<!-- visualize the results -->
+
+<!-- time poll closes, if any -->
+
+<!-- "manually close the poll" button -->
