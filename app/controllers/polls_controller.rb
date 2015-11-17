@@ -1,6 +1,6 @@
 class PollsController < ApplicationController
   def new
-    @poll = Poll.new
+    @poll = Poll.new(public: true)
   end
 
   def vote
@@ -16,7 +16,7 @@ class PollsController < ApplicationController
   end
 
   def create
-    poll = Poll.create(title: params[:poll][:title], owner: params[:poll][:owner])
+    poll = Poll.create(title: params[:poll][:title], owner: params[:poll][:owner], public: params[:poll][:public])
     params[:poll][:options].each do |option|
       poll.options.create(body: option, votes: 0)
     end
