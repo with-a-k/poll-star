@@ -1,5 +1,5 @@
 $(document).ready(function (){
-	var socket = io('https://salty-beach-2241.herokuapp.com:4000');
+	var socket = io('https://salty-beach-2241.herokuapp.com');
 	var pollId = $('#poll-title').attr('data-id');
 	var pollClosed = $('#poll-title').attr('data-closed');
 
