@@ -30,6 +30,21 @@ $(document).ready(function (){
 		)
 	}
 
+	function submitVote(){
+		var text = $(this).innerText
+		$.ajax({
+			type: 'PATCH',
+			url:  `/api/v1/options/${$(this).attr('data-id')}`,
+			success: function(response) {
+				socket.send(pollId, response);
+			}
+		});
+		for (var i = 0; i < $buttons.length; i++) {
+			$buttons[i].removeEventListener('click', submitVote);
+			$buttons[i].disabled = true;
+		};
+	};
+
 	var $buttons = $('.option-vote');
 
 	for (var i = 0; i < $buttons.length; i++) {
@@ -39,20 +54,7 @@ $(document).ready(function (){
 				$buttons[i].disabled = true;
 			};
 		} else {
-			$buttons[i].addEventListener('click', function submitVote(){
-				var text = $(this).innerText
-				$.ajax({
-					type: 'PATCH',
-					url:  `/api/v1/options/${$(this).attr('data-id')}`,
-					success: function(response) {
-						socket.send(pollId, response);
-					}
-				});
-				for (var i = 0; i < $buttons.length; i++) {
-					$buttons[i].removeEventListener('click', submitVote);
-					$buttons[i].disabled = true;
-				};
-			});
+			$buttons[i].addEventListener('click', submitVote);
 		}
 	};
 });
