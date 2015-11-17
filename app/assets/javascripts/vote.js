@@ -48,7 +48,8 @@ $(document).ready(function (){
 	var $buttons = $('.option-vote');
 
 	for (var i = 0; i < $buttons.length; i++) {
-		if(pollClosed) {
+		if(pollClosed === "true") {
+			refreshPoll();
 			for (var i = 0; i < $buttons.length; i++) {
 				$buttons[i].removeEventListener('click', submitVote);
 				$buttons[i].disabled = true;

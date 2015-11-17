@@ -5,7 +5,7 @@ $(document).ready(function (){
 
 	var $button = $('#close-poll');
 
-	if(pollClosed) {
+	if(pollClosed === "true") {
 		$button.disabled = true;
 	} else {
 		$button.on('click', function closePoll() {
@@ -13,7 +13,7 @@ $(document).ready(function (){
 				type: 'PATCH',
 				url:  `/api/v1/polls/${pollId}`,
 				success: function(response) {
-					socket.send(pollId, "close")
+					socket.send(pollId, response)
 					$button.removeEventListener('click', closePoll);
 					$button.disabled = true;
 				} 
