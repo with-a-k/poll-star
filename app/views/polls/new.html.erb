@@ -8,9 +8,6 @@
     <input type="text" name="poll[options][]" id="poll_options-1"></input><br>
   </div>
   <button id="add-option">Add Option</button><br>
-  <%= f.label :end_time, "Close poll automatically at:" %>
-  <%= f.datetime_select :end_time %><br>
-  
   <%= f.label :public, "Show results to voters before they vote?" %>
   <%= f.check_box :public %><br>
   <%= f.submit "Create" %>
