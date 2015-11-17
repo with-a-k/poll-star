@@ -2,9 +2,7 @@ class Api::V1::PollsController < ApplicationController
   respond_to :json
 
   def show
-    poll = Poll.find_by(id: params[:id])
-    poll.active?
-    respond_with poll
+    respond_with Poll.find_by(id: params[:id])
   end
 
   def update

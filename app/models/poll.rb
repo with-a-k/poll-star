@@ -41,11 +41,6 @@ class Poll < ActiveRecord::Base
     self.closed = true
   end
 
-  def active?
-    close! if Time.now > self.end_time
-    return self.closed
-  end
-
   def as_json(options = nil)
     super(:only => [:title, :owner, :closed, :end_time],
           :methods => [:total_votes, :vote_percentages],

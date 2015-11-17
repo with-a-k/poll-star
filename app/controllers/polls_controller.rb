@@ -5,14 +5,12 @@ class PollsController < ApplicationController
 
   def vote
     @poll = Poll.find_by(public_obfuscator: params[:public_obfuscator])
-    @poll.active?
     @poll_results = @poll.vote_percentages
     @poll_options = @poll.options
   end
 
   def show
     @poll = Poll.find_by(obfuscator: params[:obfuscator])
-    @poll.active?
     @poll_results = @poll.vote_percentages
     @poll_options = @poll.options
   end
