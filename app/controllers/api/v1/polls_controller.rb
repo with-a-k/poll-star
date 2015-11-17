@@ -4,4 +4,11 @@ class Api::V1::PollsController < ApplicationController
   def show
     respond_with Poll.find_by(id: params[:id])
   end
+
+  def update
+    poll = Poll.find_by(id: params[:id])
+    poll.close!
+    poll.save!
+    respond_with poll
+  end
 end

@@ -1,9 +1,9 @@
-<h2 id ="poll-title" data-id="<%= @poll.id %>"><%= @poll.title %></h3>
+<h2 id ="poll-title" data-id="<%= @poll.id %>" data-closed="<%= @poll.closed %>"><%= @poll.title %></h3>
 <h5>by <%= @poll.owner %></h5>
 
 <div id="results-area">
 	<% @poll_options.each do |option| %>
-		<div class="option-result">
+		<div class="option-result"  data-body="<%=option.body%>" data-votes="<%=option.votes%>">
 			<strong class="result-body"><%= option.body %>:</strong> <span class="result-votes"><%= option.votes %></span>
 		</div>
 	<% end %>
@@ -19,3 +19,6 @@
 <!-- time poll closes, if any -->
 
 <!-- "manually close the poll" button -->
+<div>
+	<button id="close-poll">Close</button>
+</div>

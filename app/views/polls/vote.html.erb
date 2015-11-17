@@ -11,7 +11,7 @@
 <div id="results-area" data-id="<%= @poll.id %>">
 	<% if @poll.public %>
 	<% @poll_options.each do |option| %>
-		<div class="option-result">
+		<div class="option-result" data-body="<%=option.body%>" data-votes="<%=option.votes%>">
 			<strong class="result-body"><%= option.body %>:</strong> <span class="result-votes"><%= option.votes %></span>
 		</div>
 	<% end %>

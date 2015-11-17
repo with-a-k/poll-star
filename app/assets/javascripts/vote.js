@@ -1,18 +1,20 @@
 $(document).ready(function (){
 	var socket = io('http://localhost:4000');
 	var pollId = $('#poll-title').attr('data-id');
+	var pollClosed = $('#poll-title').attr('data-closed');
 
-	socket.on(pollId, function() {
-		refreshPoll()
+	socket.on(pollId, function(message) {
+		refreshPoll(message)
 	});
 
-	function refreshPoll() {
+	function refreshPoll(data_object) {
 		$('#results-area').empty();
 
 		$.ajax({
 			type: 'GET',
 			url:  `/api/v1/polls/${pollId}`,
 			success: function(poll) {
+				pollClosed = poll['closed']
 				$.each(poll['options'], function(index, option) {
 					renderResult(option)
 				})
@@ -31,19 +33,26 @@ $(document).ready(function (){
 	var $buttons = $('.option-vote');
 
 	for (var i = 0; i < $buttons.length; i++) {
-		$buttons[i].addEventListener('click', function submitVote(){
-			var text = $(this).innerText
-			$.ajax({
-				type: 'PATCH',
-				url:  `/api/v1/options/${$(this).attr('data-id')}`,
-				success: function() {
-					socket.send(pollId, "Update " + pollId); 
-				}
-			});
+		if(pollClosed) {
 			for (var i = 0; i < $buttons.length; i++) {
 				$buttons[i].removeEventListener('click', submitVote);
 				$buttons[i].disabled = true;
 			};
-		});
+		} else {
+			$buttons[i].addEventListener('click', function submitVote(){
+				var text = $(this).innerText
+				$.ajax({
+					type: 'PATCH',
+					url:  `/api/v1/options/${$(this).attr('data-id')}`,
+					success: function(response) {
+						socket.send(pollId, response);
+					}
+				});
+				for (var i = 0; i < $buttons.length; i++) {
+					$buttons[i].removeEventListener('click', submitVote);
+					$buttons[i].disabled = true;
+				};
+			});
+		}
 	};
 });

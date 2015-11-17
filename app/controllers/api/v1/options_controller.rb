@@ -5,6 +5,6 @@ class Api::V1::OptionsController < ApplicationController
     option = Option.find_by(id: params[:id])
     option.upvote!
     option.save!
-    respond_with option
+    respond_with option.poll
   end
 end

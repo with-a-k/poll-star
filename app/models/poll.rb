@@ -2,11 +2,15 @@ require 'digest'
 
 class Poll < ActiveRecord::Base
   has_many :options
-  after_create :owner_default, :public_default, :make_obfuscator, :make_public_obfuscator, :save
+  after_create :owner_default, :public_default, :make_obfuscator, :make_public_obfuscator, :closed_default, :save
   validates :title, presence: true
 
   def owner_default
     self.owner ||= "Anonymous"
+  end
+
+  def closed_default
+    self.closed ||= true
   end
 
   def public_default
@@ -33,8 +37,12 @@ class Poll < ActiveRecord::Base
     end
   end
 
+  def close!
+    self.closed = true
+  end
+
   def as_json(options = nil)
-    super(:only => [:title, :owner],
+    super(:only => [:title, :owner, :closed],
           :methods => [:total_votes, :vote_percentages],
           :include => {
             :options => { :only => [:body, :votes] }
