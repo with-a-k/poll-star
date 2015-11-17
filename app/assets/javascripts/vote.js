@@ -2,6 +2,10 @@ $(document).ready(function (){
 	var socket = io('http://localhost:4000');
 	var pollId = $('#results-area').attr('data-id');
 
+	socket.on(pollId, function() {
+		refreshPoll()
+	});
+
 	function refreshPoll() {
 		$('#results-area').empty();
 
@@ -24,18 +28,18 @@ $(document).ready(function (){
 
 	for (var i = 0; i < $buttons.length; i++) {
 		$buttons[i].addEventListener('click', function submitVote(){
+			var text = $(this).innerText
 			$.ajax({
 				type: 'PATCH',
 				url:  `/api/v1/options/${$(this).attr('data-id')}`,
 				success: function() {
-					socket.emit('message', `${$(this).innerText} From ${pollId}`); 
+					socket.send(pollId, "Update " + pollId); 
 				}
 			});
 			for (var i = 0; i < $buttons.length; i++) {
 				$buttons[i].removeEventListener('click', submitVote);
 				$buttons[i].disabled = true;
 			};
-			refreshPoll()
 		});
 	};
 });
