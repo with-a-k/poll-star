@@ -3,10 +3,8 @@ class Api::V1::OptionsController < ApplicationController
 
   def update
     option = Option.find_by(id: params[:id])
-    if option.poll.active?
-      option.upvote!
-      option.save!
-    end
+    option.upvote!
+    option.save!
     respond_with option.poll
   end
 end
