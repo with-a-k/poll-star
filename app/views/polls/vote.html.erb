@@ -1,4 +1,4 @@
-<h2><%= @poll.title %></h3>
+<h2 id ="poll-title" data-id="<%= @poll.id %>"><%= @poll.title %></h3>
 <h5>by <%= @poll.owner %></h5>
 
 <div id="vote-buttons">
@@ -7,11 +7,14 @@
 	<% end %>
 </div>
 
+
 <div id="results-area" data-id="<%= @poll.id %>">
+	<% if @poll.public %>
 	<% @poll_options.each do |option| %>
 		<div class="option-result">
 			<strong class="result-body"><%= option.body %>:</strong> <span class="result-votes"><%= option.votes %></span>
 		</div>
+	<% end %>
 	<% end %>
 </div>
 <!-- visualize the results -->

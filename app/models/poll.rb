@@ -2,14 +2,15 @@ require 'digest'
 
 class Poll < ActiveRecord::Base
   has_many :options
-  after_initialize :make_obfuscator, :make_public_obfuscator
+  after_create :owner_default, :public_default, :make_obfuscator, :make_public_obfuscator, :save
   validates :title, presence: true
 
-  def set_defaults
+  def owner_default
     self.owner ||= "Anonymous"
-    self.public = false
-    self.make_obfuscator
-    self.make_public_obfuscator
+  end
+
+  def public_default
+    self.public ||= false
   end
 
   def make_obfuscator
@@ -18,18 +19,6 @@ class Poll < ActiveRecord::Base
 
   def make_public_obfuscator
     self.public_obfuscator = Digest::SHA1.hexdigest("#{title}-#{id}")
-  end
-
-  def to_param
-    obfuscator
-  end
-
-  def self.show_by_param(input)
-    find_by_obfuscator(input)
-  end
-
-  def self.vote_by_param(input)
-    find_by_public_obfuscator(input)
   end
 
   def total_votes

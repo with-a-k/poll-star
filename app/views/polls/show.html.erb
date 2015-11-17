@@ -1,5 +1,5 @@
-<h2><%= @poll.title %></h3>
-<!-- <h5>by <%= @poll.owner %></h5> -->
+<h2 id ="poll-title" data-id="<%= @poll.id %>"><%= @poll.title %></h3>
+<h5>by <%= @poll.owner %></h5>
 
 <div id="results-area">
 	<% @poll_options.each do |option| %>
@@ -7,7 +7,7 @@
 			<strong class="result-body"><%= option.body %>:</strong> <span class="result-votes"><%= option.votes %></span>
 		</div>
 	<% end %>
-</div>
+</div><br>
 
 <div id="poll-urls">
 	Share the URL "/polls/<%= @poll.public_obfuscator %>/vote" and others can vote on this poll.<br>
