@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117051542) do
+ActiveRecord::Schema.define(version: 20151117173847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20151117051542) do
     t.boolean  "public"
     t.string   "public_obfuscator"
     t.boolean  "closed"
+    t.datetime "end_time"
   end
 
   add_foreign_key "options", "polls"
