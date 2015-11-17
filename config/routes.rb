@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :polls, only: [:new, :show, :create]
-  get 'polls/:id/vote', to: 'polls#vote', as: 'poll_vote'
+  resources :polls, only: [:new, :show, :create], param: :obfuscator
+  get 'polls/:public_obfuscator/vote', to: 'polls#vote', as: 'poll_vote'
   root 'polls#new'
 end

@@ -22,16 +22,15 @@ $(document).ready(function (){
 
 	for (var i = 0; i < $buttons.length; i++) {
 		$buttons[i].addEventListener('click', function submitVote(){
-			console.log(this.innerText);
 			$.ajax({
 				type: 'PATCH',
 				url:  `/api/v1/options/${$(this).attr('data-id')}`,
-				success: refreshPoll()
 			});
 			for (var i = 0; i < $buttons.length; i++) {
 				$buttons[i].removeEventListener('click', submitVote);
 				$buttons[i].disabled = true;
 			};
+			refreshPoll()
 		});
 	};
 });

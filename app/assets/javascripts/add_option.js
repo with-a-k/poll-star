@@ -1,8 +1,10 @@
 $(document).ready(function (){
 	var $options = $('.options-fields');
+	var idField = 1;
 
 	$('#add-option').on('click', function (e){
 		e.preventDefault();
-		$("<label>Option</label> <input type='text' name='poll[options][]' id='poll_options'></input><br>").appendTo($options);
+		idField++;
+		$(`<label>Option</label> <input type='text' name='poll[options][]' id='poll_options-${idField}'></input><br>`).appendTo($options);
 	});
 });
