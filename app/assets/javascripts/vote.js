@@ -12,7 +12,7 @@ $(document).ready(function (){
 
 		$.ajax({
 			type: 'GET',
-			url:  `/api/v1/polls/${pollId}`,
+			url:  '/api/v1/polls/' + pollId,
 			success: function(poll) {
 				pollClosed = poll['closed']
 				$.each(poll['options'], function(index, option) {
@@ -24,9 +24,9 @@ $(document).ready(function (){
 
 	function renderResult(option) {
 		$('#results-area').append(
-			`<div class="option-result">
-			<strong class="result-body">${option.body}:</strong> <span class="result-votes">${option.votes}</span>
-			</div>`
+			'<div class="option-result">
+			<strong class="result-body">'+ option.body + ':</strong> <span class="result-votes">' + option.votes + '</span>
+			</div>'
 		)
 	}
 
@@ -34,7 +34,7 @@ $(document).ready(function (){
 		var text = $(this).innerText
 		$.ajax({
 			type: 'PATCH',
-			url:  `/api/v1/options/${$(this).attr('data-id')}`,
+			url:  '/api/v1/options/' + $(this).attr('data-id'),
 			success: function(response) {
 				socket.send(pollId, response);
 			}

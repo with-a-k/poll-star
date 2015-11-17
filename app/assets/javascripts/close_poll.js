@@ -11,7 +11,7 @@ $(document).ready(function (){
 		$button.on('click', function closePoll() {
 			$.ajax({
 				type: 'PATCH',
-				url:  `/api/v1/polls/${pollId}`,
+				url:  '/api/v1/polls/' + pollId,
 				success: function(response) {
 					socket.send(pollId, "close")
 					$button.removeEventListener('click', closePoll);
