@@ -1,6 +1,8 @@
 $(document).ready(function (){
+	var socket = io('http://localhost:4000');
+	var pollId = $('#results-area').attr('data-id');
+
 	function refreshPoll() {
-		var pollId = $('#results-area').attr('data-id');
 		$('#results-area').empty();
 
 		$.ajax({
@@ -25,6 +27,9 @@ $(document).ready(function (){
 			$.ajax({
 				type: 'PATCH',
 				url:  `/api/v1/options/${$(this).attr('data-id')}`,
+				success: function() {
+					socket.emit('message', `${$(this).innerText} From ${pollId}`); 
+				}
 			});
 			for (var i = 0; i < $buttons.length; i++) {
 				$buttons[i].removeEventListener('click', submitVote);
